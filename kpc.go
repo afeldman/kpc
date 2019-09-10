@@ -40,7 +40,7 @@ type KPC struct {
 	Consts   []string `json:"consts,omitempty"`   // the const files of this project
 }
 
-func KPC_Init(name string) *KPC {
+func InitKPC(name string) *KPC {
 	return &KPC{
 		KPC_Version:  KpcVersion,
 		Name:         name,

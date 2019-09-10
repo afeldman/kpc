@@ -5,7 +5,7 @@ package kpc
 //the tag is the hash in the git tree.
 type Repository struct {
 	URL string `json:"url"`
-	Tag string `json:"version"`
+	Tag string `json:"tag"`
 }
 
 func InitRepository() *Repository {

@@ -2,15 +2,35 @@ package kpc
 
 import (
 	"fmt"
+	"strings"
+
+	fs "github.com/afeldman/go-util/fs"
 )
 
 var KPCs map[string]KPC
 
-func InitKPCs(basic_path []string) {
+func InitKPCs(kpc_root string) error {
+
 	KPCs = make(map[string]KPC)
+
+	files, err := fs.FilePathWalkDir(kpc_root)
+	if err != nil {
+		panic(err)
+	}
+
+	for _, file := range files {
+		if strings.HasSuffix(strings.ToLower(file), "kpc") {
+			err, kpc := ReadKPCFile(file)
+			if err != nil {
+				return err
+			}
+			KPCs[*(kpc.GetName())] = *kpc
+		}
+	}
+	return nil
 }
 
-func KPC_Size() int {
+func KPCs_Size() int {
 	return len(KPCs)
 }
 
